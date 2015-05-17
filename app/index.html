@@ -1,0 +1,82 @@
+<!doctype html>
+<html ng-app="ui.bootstrap.demo">
+    <head>
+        <link href="../assets/bootstrap-v3.3.4.css" rel="stylesheet">
+        <style>
+            body {
+                height: 3000px;
+            }
+            .abs, .abs2 {
+                left: 250px;
+                position: absolute;
+                top: 250px;
+            }
+            .abs2 {
+                left: 5px;
+            }
+            .popover {
+                min-width: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div ng-controller="PopoverDemoCtrl">
+            <script type="text/ng-template" id="myPopoverTemplate.html">
+                <div class="popover"
+                    tooltip-animation-class="fade"
+                    tooltip-classes
+                    ng-class="{ in: isOpen() }">
+                    <div class="arrow"></div>
+                    <div class="popover-inner">
+                        <h3 class="popover-title" ng-bind="title" ng-if="title"></h3>
+                        <div class="popover-content"\n" +
+                        tooltip-template-transclude="contentExp()"\n" +
+                        tooltip-template-transclude-scope="originScope()">
+                        </div>
+                    </div>
+                </div>
+            </script>
+
+            <div class="abs">
+                Choose a position for all buttons:
+                <select id="position">
+                    <option>top</option>
+                    <option>left</option>
+                    <option>bottom</option>
+                    <option>right</option>
+                </select>
+            </div>
+
+            <div class="abs2">
+                <button popover-trigger="mouseenter" popover="Default Positioning!" popover-title="{{dynamicPopover.title}}" popover-template="{{dynamicPopover.templateUrl}}" class="btn btn-default">Abs Pos</button>
+            </div>
+
+            <button style="position: absolute; left: 2%; top: 1%" popover-trigger="mouseenter" popover="Default Positioning!" popover-title="{{dynamicPopover.title}}" popover-template="{{dynamicPopover.templateUrl}}" class="btn btn-default">Auto</button>
+            <button style="position: absolute; left: 46%; top: 1%" popover-trigger="click" popover="Default Positioning!" popover-title="{{dynamicPopover.title}}" popover-template="{{dynamicPopover.templateUrl}}" class="btn btn-default">Click</button>
+            <button style="position: absolute; left: 95%; top: 1%" popover-trigger="mouseenter" popover="Default Positioning!" popover-title="{{dynamicPopover.title}}" popover-template="{{dynamicPopover.templateUrl}}" class="btn btn-default">Auto</button>
+
+            <button style="position: absolute; left: 2%; top: 48%" popover-trigger="mouseenter" popover="Default Positioning!" popover-title="{{dynamicPopover.title}}" popover-template="{{dynamicPopover.templateUrl}}" class="btn btn-default">Auto</button>
+            <button style="position: absolute; left: 46%; top: 48%" popover-trigger="mouseenter" popover="Default Positioning!" popover-title="{{dynamicPopover.title}}" popover-template="{{dynamicPopover.templateUrl}}" class="btn btn-default">Auto</button>
+            <button style="position: absolute; left: 95%; top: 48%" popover-trigger="mouseenter" popover="Default Positioning!" popover-title="{{dynamicPopover.title}}" popover-template="{{dynamicPopover.templateUrl}}" class="btn btn-default">Auto</button>
+
+            <button style="position: absolute; left: 2%; top: 95%" popover-trigger="mouseenter" popover="Default Positioning!" popover-title="{{dynamicPopover.title}}" popover-template="{{dynamicPopover.templateUrl}}" class="btn btn-default">Auto</button>
+            <button style="position: absolute; left: 46%; top: 95%" popover-trigger="mouseenter" popover="Default Positioning!" popover-title="{{dynamicPopover.title}}" popover-template="{{dynamicPopover.templateUrl}}" class="btn btn-default">Auto</button>
+            <button style="position: absolute; left: 95%; top: 95%" popover-trigger="mouseenter" popover="Default Positioning!" popover-title="{{dynamicPopover.title}}" popover-template="{{dynamicPopover.templateUrl}}" class="btn btn-default">Auto</button>
+        </div>
+    </body>
+    <script src="../assets/angular.js"></script>
+    <script src="../assets/lodash.js"></script>
+    <script src="../assets/ui-bootstrap-tpls-0.13.0.js"></script>
+     <script src="lodashMixins.js"></script>
+    <script src="popoverDecorator.js"></script>
+    <script>
+        angular.module('ui.bootstrap.demo', ['ui.bootstrap'])
+        .controller('PopoverDemoCtrl', function($scope) {
+            $scope.dynamicPopover = {
+                content: 'Hello, World!',
+                templateUrl: 'myPopoverTemplate.html',
+                title: 'Popover Demo'
+            };
+        });
+    </script>
+</html>
