@@ -13,6 +13,19 @@
             $delegate.positionElements = function($hostEl, $popoverEl, positionStr, appendToBody) {
                 // select box position setting - will be removed!
                 arguments[2] = document.getElementById('position').value;
+
+                // If host element is partially offscreen we won't have enough room to "bump" the popover
+                if (arguments[2] === 'left' || arguments[2] === 'right') {
+                    var hostTrueOffset = _.realViewPosition($hostEl[0]);
+                    if (hostTrueOffset.top < 0) {
+                        arguments[2] = 'bottom';
+                    }
+                    else if(hostTrueOffset.top + $hostEl[0].offsetHeight >= document.documentElement.clientHeight) {
+                        arguments[2] = 'top';
+                    }
+                }
+
+                // Always update the popover with the final classname
                 $popoverEl.removeClass(positionClasses).addClass(arguments[2]);
 
                 // Let bootstrap calc the starting position
